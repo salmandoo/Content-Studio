@@ -40,6 +40,10 @@ export async function updateSession(request: NextRequest) {
   const requiresAuth = AUTH_REQUIRED_PATHS.some((p) => path.startsWith(p));
 
   if (!user && requiresAuth) {
+    // API routes: return 401 JSON so client code can fall through to demo mode.
+    if (path.startsWith("/api/")) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
     const url = request.nextUrl.clone();
     url.pathname = "/auth/login";
     url.searchParams.set("next", path);

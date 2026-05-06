@@ -19,9 +19,15 @@ async function go<T>(
       const body = (await r.json()) as ApiError;
       if (body?.error) msg = body.error;
     } catch {
-      /* non-JSON body */
+      /* non-JSON body — likely auth redirect to login HTML */
     }
+    if (r.status === 401) msg = "Unauthorized";
     throw new Error(msg);
+  }
+  // If we somehow got HTML on a 200 (shouldn't happen, but be defensive)
+  const ct = r.headers.get("content-type") ?? "";
+  if (!ct.includes("application/json")) {
+    throw new Error("Unauthorized");
   }
   return (await r.json()) as T;
 }
