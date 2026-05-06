@@ -1,7 +1,10 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { after } from "next/server";
 import { z } from "zod";
 import { bad, requireUser } from "@/lib/api/auth";
-import { startRun } from "@/lib/api/runner";
+import { runOne } from "@/lib/api/runner";
+
+export const maxDuration = 300;
 
 const Body = z.object({
   briefId: z.string().uuid(),
@@ -19,7 +22,7 @@ export async function POST(req: NextRequest) {
     return bad(`Invalid request body: ${(e as Error).message}`);
   }
 
-  const { data: brief } = await supabase
+  const { data: brief } = await (supabase as any)
     .from("briefs")
     .select("id, prompt, source, file_name")
     .eq("id", body.briefId)
@@ -35,7 +38,7 @@ export async function POST(req: NextRequest) {
       ? `From ${brief.file_name}`
       : `Run · ${new Date().toISOString().slice(0, 10)}`);
 
-  const { data: run, error: insertErr } = await supabase
+  const { data: run, error: insertErr } = await (supabase as any)
     .from("runs")
     .insert({
       brief_id: brief.id,
@@ -47,7 +50,16 @@ export async function POST(req: NextRequest) {
     .single();
   if (insertErr || !run) return bad(insertErr?.message ?? "Failed to create run.", 500);
 
-  await startRun(run.id);
+  // after() keeps the serverless function alive until the runner finishes.
+  // Without it, "fire and forget" gets killed the moment the response returns
+  // and the run stays queued forever.
+  after(async () => {
+    try {
+      await runOne(run.id);
+    } catch (err) {
+      console.error("[runner] run failed", run.id, err);
+    }
+  });
 
   return NextResponse.json({ run });
 }
@@ -56,7 +68,7 @@ export async function GET() {
   const { user, supabase, error } = await requireUser();
   if (error) return error;
 
-  const { data, error: qErr } = await supabase
+  const { data, error: qErr } = await (supabase as any)
     .from("runs")
     .select("*")
     .eq("user_id", user.id)

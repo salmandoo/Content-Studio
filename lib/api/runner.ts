@@ -55,7 +55,7 @@ export async function startRun(runId: string) {
   });
 }
 
-async function runOne(runId: string) {
+export async function runOne(runId: string) {
   const admin = supabaseAdmin();
 
   const { data: run } = await (admin as any).from("runs").select("*").eq("id", runId).single();
