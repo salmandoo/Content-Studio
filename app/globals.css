@@ -1,0 +1,279 @@
+@import "tailwindcss";
+
+/*  ────────────────────────────────────────────────────────────────────
+    Apple design system — Content Studio
+    Type: SF Pro (system stack), SF Mono
+    Colors: iOS / macOS system tokens (Light + Dark)
+    Materials: vibrancy via backdrop-blur + translucent fills
+    ──────────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  /* —————————— Light system —————————— */
+  --color-bg:                 oklch(1 0 0);                /* #FFFFFF */
+  --color-bg-grouped:         oklch(0.965 0.002 264);      /* #F2F2F7 */
+  --color-bg-elev:            oklch(1 0 0);
+  --color-card:               oklch(1 0 0);
+  --color-card-grouped:       oklch(1 0 0);                /* on grouped bg */
+  --color-fill:               oklch(0.6 0.005 264 / 0.20); /* Quaternary Fill */
+  --color-fill-secondary:     oklch(0.6 0.005 264 / 0.16);
+  --color-fill-tertiary:      oklch(0.6 0.005 264 / 0.12);
+  --color-fill-quaternary:    oklch(0.6 0.005 264 / 0.08);
+  --color-separator:          oklch(0.55 0.005 264 / 0.18);
+  --color-separator-opaque:   oklch(0.83 0.003 264);       /* #C6C6C8 */
+
+  --color-label:              oklch(0.18 0.013 270);       /* near #000 */
+  --color-label-secondary:    oklch(0.36 0.012 264 / 0.6);
+  --color-label-tertiary:     oklch(0.36 0.012 264 / 0.32);
+  --color-label-quaternary:   oklch(0.36 0.012 264 / 0.18);
+
+  /* iOS system colors */
+  --color-blue:    oklch(0.62 0.20 251);   /* #007AFF */
+  --color-green:   oklch(0.74 0.176 145);  /* #34C759 */
+  --color-indigo:  oklch(0.49 0.20 280);   /* #5856D6 */
+  --color-orange:  oklch(0.78 0.165 60);   /* #FF9500 */
+  --color-pink:    oklch(0.66 0.22 12);    /* #FF2D55 */
+  --color-purple:  oklch(0.62 0.22 312);   /* #AF52DE */
+  --color-red:     oklch(0.64 0.22 27);    /* #FF3B30 */
+  --color-teal:    oklch(0.79 0.115 220);  /* #5AC8FA */
+  --color-yellow:  oklch(0.86 0.165 90);   /* #FFCC00 */
+  --color-mint:    oklch(0.86 0.10 168);   /* #00C7BE */
+
+  /* Translucent navbar/sidebar materials */
+  --color-nav:        oklch(1 0 0 / 0.72);
+  --color-sidebar:    oklch(0.965 0.002 264 / 0.72);
+  --color-popover:    oklch(0.99 0.002 264 / 0.85);
+
+  /* Type stack — SF on Apple devices, native fallback elsewhere */
+  --font-sans:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+                  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+                  "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono:    "SF Mono", ui-monospace, Menlo, Monaco, "Cascadia Mono", monospace;
+
+  /* Apple-style radii */
+  --radius-xs:  6px;
+  --radius-sm:  8px;
+  --radius-md:  10px;
+  --radius-lg:  14px;
+  --radius-xl:  18px;
+  --radius-2xl: 22px;
+  --radius-3xl: 28px;
+
+  /* Subtle shadows */
+  --shadow-card:     0 0.5px 0 0 oklch(0.55 0 0 / 0.08), 0 1px 3px -1px oklch(0.2 0 0 / 0.06);
+  --shadow-pop:      0 0.5px 0 0 oklch(0.55 0 0 / 0.10), 0 8px 24px -8px oklch(0.2 0 0 / 0.18);
+  --shadow-toolbar:  0 0.5px 0 0 oklch(0.55 0 0 / 0.10);
+}
+
+/* —————————— Dark system —————————— */
+@media (prefers-color-scheme: dark) {
+  @theme inline {
+    --color-bg:               oklch(0 0 0);              /* #000000 */
+    --color-bg-grouped:       oklch(0 0 0);
+    --color-bg-elev:          oklch(0.18 0.005 264);     /* #1C1C1E */
+    --color-card:             oklch(0.21 0.005 264);
+    --color-card-grouped:     oklch(0.21 0.005 264);     /* #1C1C1E */
+    --color-fill:             oklch(0.7 0.005 264 / 0.36);
+    --color-fill-secondary:   oklch(0.7 0.005 264 / 0.32);
+    --color-fill-tertiary:    oklch(0.7 0.005 264 / 0.24);
+    --color-fill-quaternary:  oklch(0.7 0.005 264 / 0.18);
+    --color-separator:        oklch(0.7 0.005 264 / 0.30);
+    --color-separator-opaque: oklch(0.27 0.005 264);     /* #38383A */
+
+    --color-label:            oklch(1 0 0);              /* #FFFFFF */
+    --color-label-secondary:  oklch(0.92 0.005 264 / 0.60);
+    --color-label-tertiary:   oklch(0.92 0.005 264 / 0.30);
+    --color-label-quaternary: oklch(0.92 0.005 264 / 0.18);
+
+    --color-blue:    oklch(0.66 0.20 251);  /* #0A84FF */
+    --color-green:   oklch(0.78 0.20 144);  /* #30D158 */
+    --color-indigo:  oklch(0.55 0.21 280);  /* #5E5CE6 */
+    --color-orange:  oklch(0.81 0.17 60);   /* #FF9F0A */
+    --color-pink:    oklch(0.69 0.22 12);   /* #FF375F */
+    --color-purple:  oklch(0.71 0.22 312);  /* #BF5AF2 */
+    --color-red:     oklch(0.69 0.22 27);   /* #FF453A */
+    --color-teal:    oklch(0.81 0.115 220); /* #64D2FF */
+    --color-yellow:  oklch(0.89 0.17 90);   /* #FFD60A */
+    --color-mint:    oklch(0.87 0.115 168); /* #66D4CF */
+
+    --color-nav:     oklch(0.18 0.005 264 / 0.72);
+    --color-sidebar: oklch(0.10 0.005 264 / 0.72);
+    --color-popover: oklch(0.21 0.005 264 / 0.85);
+
+    --shadow-card: 0 0.5px 0 0 oklch(1 0 0 / 0.06), 0 1px 3px -1px oklch(0 0 0 / 0.4);
+    --shadow-pop:  0 0.5px 0 0 oklch(1 0 0 / 0.08), 0 8px 24px -8px oklch(0 0 0 / 0.6);
+    --shadow-toolbar: 0 0.5px 0 0 oklch(1 0 0 / 0.08);
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+  html, body {
+    background: var(--color-bg-grouped);
+    color: var(--color-label);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11", "cv09";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.011em; /* SF benefits from -0.005 to -0.015 at body */
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--color-blue) 30%, transparent);
+    color: inherit;
+  }
+
+  /* Apple type ramp — sizes mirror HIG, not pixel-perfect but close */
+  .text-large-title { font-size: 34px; line-height: 41px; font-weight: 700; letter-spacing: -0.022em; }
+  .text-title-1     { font-size: 28px; line-height: 34px; font-weight: 600; letter-spacing: -0.020em; }
+  .text-title-2     { font-size: 22px; line-height: 28px; font-weight: 600; letter-spacing: -0.018em; }
+  .text-title-3     { font-size: 20px; line-height: 25px; font-weight: 600; letter-spacing: -0.016em; }
+  .text-headline    { font-size: 17px; line-height: 22px; font-weight: 600; letter-spacing: -0.012em; }
+  .text-body        { font-size: 17px; line-height: 22px; font-weight: 400; letter-spacing: -0.010em; }
+  .text-callout     { font-size: 16px; line-height: 21px; font-weight: 400; letter-spacing: -0.008em; }
+  .text-subheadline { font-size: 15px; line-height: 20px; font-weight: 400; letter-spacing: -0.006em; }
+  .text-footnote    { font-size: 13px; line-height: 18px; font-weight: 400; letter-spacing:  0.000em; }
+  .text-caption-1   { font-size: 12px; line-height: 16px; font-weight: 400; letter-spacing:  0.002em; }
+  .text-caption-2   { font-size: 11px; line-height: 13px; font-weight: 400; letter-spacing:  0.004em; }
+
+  .num-tabular { font-variant-numeric: tabular-nums; }
+
+  /* Materials — vibrancy fakes */
+  .material-thick {
+    background: var(--color-nav);
+    backdrop-filter: saturate(180%) blur(28px);
+    -webkit-backdrop-filter: saturate(180%) blur(28px);
+  }
+  .material-thin {
+    background: color-mix(in oklch, var(--color-bg) 60%, transparent);
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+  }
+  .material-sidebar {
+    background: var(--color-sidebar);
+    backdrop-filter: saturate(180%) blur(40px);
+    -webkit-backdrop-filter: saturate(180%) blur(40px);
+  }
+
+  /* Insets used by grouped lists */
+  .hairline-b::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    right: 0;
+    height: 0.5px;
+    background: var(--color-separator);
+  }
+
+  /* Focus ring — Apple style halo */
+  *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-blue) 28%, transparent);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Scrollbar — minimal, mac-like */
+  ::-webkit-scrollbar { width: 12px; height: 12px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: oklch(0.5 0.005 264 / 0.4);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(0.5 0.005 264 / 0.6);
+    background-clip: padding-box;
+  }
+
+  /* Apple-style press feedback */
+  .pressable {
+    transition: transform 120ms cubic-bezier(0.32, 0.72, 0, 1),
+                background-color 120ms ease,
+                opacity 120ms ease;
+  }
+  .pressable:active {
+    transform: scale(0.97);
+  }
+
+  /* Spring-style entrance */
+  @keyframes apple-rise {
+    from { opacity: 0; transform: translate3d(0, 6px, 0) scale(0.99); }
+    to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  }
+  .rise   { animation: apple-rise 480ms cubic-bezier(0.32, 0.72, 0, 1) both; }
+  .rise-1 { animation-delay: 40ms; }
+  .rise-2 { animation-delay: 90ms; }
+  .rise-3 { animation-delay: 140ms; }
+  .rise-4 { animation-delay: 200ms; }
+  .rise-5 { animation-delay: 260ms; }
+  .rise-6 { animation-delay: 320ms; }
+
+  /* Pulse for live indicators */
+  @keyframes apple-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.55; transform: scale(0.92); }
+  }
+  .live-pulse { animation: apple-pulse 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+  /* Toggle (iOS switch) — uses checkbox for accessibility */
+  .ios-switch {
+    appearance: none;
+    width: 51px;
+    height: 31px;
+    border-radius: 999px;
+    background: var(--color-fill);
+    position: relative;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+  }
+  .ios-switch::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 27px;
+    height: 27px;
+    border-radius: 999px;
+    background: white;
+    box-shadow: 0 3px 8px oklch(0 0 0 / 0.15), 0 0 0 0.5px oklch(0 0 0 / 0.04);
+    transition: transform 240ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .ios-switch:checked { background: var(--color-green); }
+  .ios-switch:checked::after { transform: translateX(20px); }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .rise, .live-pulse, .pressable { animation: none !important; transition: none !important; }
+  }
+}
+
+/* iOS-style segmented control (uses radio inputs in HTML) */
+.segmented {
+  display: inline-flex;
+  padding: 2px;
+  background: var(--color-fill-tertiary);
+  border-radius: 9px;
+  position: relative;
+}
+.segmented > button {
+  flex: 1;
+  padding: 6px 14px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.006em;
+  color: var(--color-label);
+  transition: background-color 180ms ease, color 180ms ease, transform 120ms ease;
+}
+.segmented > button[aria-selected="true"] {
+  background: var(--color-bg-elev);
+  box-shadow: 0 0.5px 0 0 oklch(0 0 0 / 0.04), 0 3px 8px -3px oklch(0 0 0 / 0.15);
+}
+.segmented > button:not([aria-selected="true"]):hover {
+  background: var(--color-fill-quaternary);
+}
+.segmented > button:active { transform: scale(0.97); }

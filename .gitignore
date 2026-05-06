@@ -1,0 +1,11 @@
+*.log
+.DS_Store
+.cstudio-staging/
+.env
+.env*.local
+.env.deploy
+.env.local
+.next/
+.vercel
+.vercel/
+node_modules/
