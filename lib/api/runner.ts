@@ -71,11 +71,29 @@ export async function runOne(runId: string) {
     return;
   }
 
-  const { data: brand } = await (admin as any)
+  let { data: brand } = await (admin as any)
     .from("brand_settings")
     .select("*")
     .eq("user_id", run.user_id)
     .single();
+  if (!brand) {
+    // Trigger sometimes doesn't fire on signup (Supabase event order races) —
+    // create a default brand inline so the run doesn't dead-end.
+    const { data: created } = await (admin as any)
+      .from("brand_settings")
+      .insert({
+        user_id: run.user_id,
+        name: "My Brand",
+        voice_md: "# Voice\n\nPlain, operator-y prose. No marketing fluff.",
+        visual_md: "# Visual\n\nMinimal, premium, system-default aesthetic.",
+        tokens: { primary: "#007AFF", paper: "#FFFFFF", ink: "#000000" },
+        design_system: "apple",
+        motion_preference: "snappy",
+      })
+      .select()
+      .single();
+    brand = created;
+  }
   if (!brand) {
     await (admin as any).from("runs").update({ status: "failed" }).eq("id", runId);
     return;
